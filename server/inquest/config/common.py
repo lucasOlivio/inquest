@@ -1,12 +1,16 @@
-import os
-from os.path import join
-from distutils.util import strtobool
+import environ
 import dj_database_url
 
-BASE_DIR = os.path.normpath(
-    join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "inquest")
+BASE_DIR = (
+    environ.Path(__file__) - 3
 )
 
+APPS_DIR = (
+    environ.Path(__file__) - 2
+)
+
+env = environ.Env()
+env.read_env(env_file=str(BASE_DIR.path(".env")))
 
 INSTALLED_APPS = (
     "django.contrib.admin",
@@ -38,7 +42,7 @@ MIDDLEWARE = (
 
 ALLOWED_HOSTS = ["*"]
 ROOT_URLCONF = "inquest.urls"
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 WSGI_APPLICATION = "inquest.wsgi.application"
 
 # Email
@@ -49,10 +53,10 @@ ADMINS = (("Author", "lucas27_olivio@hotmail.com"),)
 # Postgres
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv(
+        default=env.db(
             "DJANGO_DATABASE_URL", "postgres://postgres:@postgres:5432/postgres"
         ),
-        conn_max_age=int(os.getenv("POSTGRES_CONN_MAX_AGE", 600)),
+        conn_max_age=int(env.int("POSTGRES_CONN_MAX_AGE", 600)),
     )
 }
 
@@ -66,8 +70,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "staticfiles"))
-STATICFILES_DIRS = [os.path.normpath(join(os.path.dirname(BASE_DIR), "static"))]
+STATIC_ROOT = str(APPS_DIR.path("staticfiles"))
+STATICFILES_DIRS = [str(APPS_DIR.path("static"))]
 STATIC_URL = "/static/"
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -75,7 +79,7 @@ STATICFILES_FINDERS = (
 )
 
 # Media files
-MEDIA_ROOT = join(os.path.dirname(BASE_DIR), "media")
+MEDIA_ROOT = str(APPS_DIR("media"))
 MEDIA_URL = "/media/"
 
 TEMPLATES = [
@@ -96,7 +100,7 @@ TEMPLATES = [
 
 # Set DEBUG to False as a default for safety
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = strtobool(os.getenv("DJANGO_DEBUG", "no"))
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # Password Validation
 # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#module-django.contrib.auth.password_validation
@@ -162,7 +166,7 @@ AUTH_USER_MODEL = "users.User"
 # Django Rest Framework
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": int(os.getenv("DJANGO_PAGINATION_LIMIT", 10)),
+    "PAGE_SIZE": env.int("DJANGO_PAGINATION_LIMIT", 10),
     "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%S%z",
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
@@ -180,7 +184,7 @@ REST_FRAMEWORK = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL"),
+        "LOCATION": env.str("REDIS_URL"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # Mimicing memcache behavior.

@@ -1,9 +1,5 @@
-import os
+from inquest.config.common import *
 
-from .common import *
-
-
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # Site
 # https://docs.djangoproject.com/en/2.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]

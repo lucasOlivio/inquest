@@ -1,9 +1,4 @@
-import os
-
-from .common import *
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+from inquest.config.common import *
 
 DEBUG = True
 AUTH_PASSWORD_VALIDATORS = []
