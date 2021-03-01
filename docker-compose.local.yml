@@ -1,0 +1,40 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
+    image: inquest_local_postgres
+    container_name: inquest_postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/local/.postgres
+
+  server:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/local/server/Dockerfile
+    image: inquest_server
+    container_name: inquest_server
+    depends_on:
+      - postgres
+    volumes:
+      - ./server:/server:z
+    env_file:
+      - ./.envs/local/.server
+      - ./.envs/local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  redis:
+    image: redis:5.0
+    container_name: inquest_redis

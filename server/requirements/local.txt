@@ -1,0 +1,27 @@
+-r base.txt
+
+# Developer Tools
+ipdb==0.13.4
+ipython==7.19.0
+mkdocs==1.1.2
+flake8==3.8.4
+
+# Testing
+mypy==0.790
+django-stubs==1.7.0
+pytest==6.2.1
+pytest-sugar==0.9.4
+Werkzeug==1.0.1
+mock==4.0.3
+factory-boy==3.2.0
+django-nose==1.4.7
+nose-progressive==1.5.2
+coverage==5.3.1
+django-debug-toolbar==3.2
+django-extensions==3.1.0
+
+# Django
+django-debug-toolbar==3.2
+django-extensions==3.1.0
+django-coverage-plugin==1.8.0
+pytest-django==4.1.0

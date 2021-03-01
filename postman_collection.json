@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "47fde2d4-8e31-4d15-afa9-1282ff05dab8",
+		"name": "Inquest",
+		"description": "Microserviço para gerenciar empresas e posses.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4021a9dd-66ef-4950-96c2-5e4750d7108d",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"jwttoken\", pm.response.json().access);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				},
+				"description": "Requests a new jwt token to set for all requests"
+			},
+			"response": []
+		},
+		{
+			"name": "Create demand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89e2638d-b15d-4099-81df-040068476454",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"demand_id\", pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"test 2\",\n    \"is_completed\": false,\n    \"delivery_state\": \"sp\",\n    \"delivery_city\": \"rp\",\n    \"delivery_street\": \"asdf\",\n    \"delivery_number\": 12,\n    \"delivery_complement\": \"asdf\",\n    \"delivery_cep\": \"344343\",\n    \"delivery_name\": \"fasdf\",\n    \"cellphone\": \"34234234\",\n    \"email\": \"asdfasd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						""
+					]
+				},
+				"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
+			},
+			"response": []
+		},
+		{
+			"name": "Patch demand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0e8d2c3-7eea-4c15-93a4-738bd9a2eeac",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Test patch\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						"{{demand_id}}",
+						""
+					]
+				},
+				"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
+			},
+			"response": []
+		},
+		{
+			"name": "List demands",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be3284ef-d932-46c4-9c76-1dbd83c79f73",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						""
+					]
+				},
+				"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
+			},
+			"response": []
+		},
+		{
+			"name": "Update demand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01245009-b8f0-4ca2-828a-78534b649bc1",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"test PUT\",\n    \"is_completed\": false,\n    \"delivery_state\": \"sp\",\n    \"delivery_city\": \"rp\",\n    \"delivery_street\": \"test street\",\n    \"delivery_number\": 12,\n    \"delivery_complement\": \"test\",\n    \"delivery_cep\": \"test\",\n    \"delivery_name\": \"test\",\n    \"cellphone\": \"test\",\n    \"email\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						"{{demand_id}}",
+						""
+					]
+				},
+				"description": "Update all fields of a demand"
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve demand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fcbc4e6-8f57-41f3-bd87-c8cae0fd9161",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						"{{demand_id}}",
+						""
+					]
+				},
+				"description": "Retrieve one specific demand"
+			},
+			"response": []
+		},
+		{
+			"name": "Set completed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b4e8678-8231-40fc-a260-81920eb87102",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/set_completed/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						"{{demand_id}}",
+						"set_completed",
+						""
+					]
+				},
+				"description": "Set demand as completed and set its completed date"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete demand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7c13aaa-77b9-4020-aa1e-25b211b0f3af",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"demands",
+						"{{demand_id}}",
+						""
+					]
+				},
+				"description": "Delete demand from db"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwttoken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f5d76902-aa79-44ae-a89b-22bffb0e149e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f4340bce-0a95-4dc3-822c-7eebd4037cc0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "664e5c4b-cdd2-4424-ab1a-03248d258ecb",
+			"key": "authService",
+			"value": "http://localhost:8000/api/token/",
+			"type": "string"
+		},
+		{
+			"id": "02a4be0e-cf1f-4014-b26e-c6f75191a7bf",
+			"key": "username",
+			"value": "test",
+			"type": "string"
+		},
+		{
+			"id": "e6bbc5c2-fbbf-47a7-9516-6f6c970f17a5",
+			"key": "password",
+			"value": "test",
+			"type": "string"
+		},
+		{
+			"id": "1eaaf7a7-0032-49a4-baaf-8be9d1061c5e",
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"id": "fe088ee0-a275-4b80-8fee-d68e6e58adb3",
+			"key": "demand_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9d4dcffa-cf7f-4b2d-8acc-fe35726a9c25",
+			"key": "jwttoken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
