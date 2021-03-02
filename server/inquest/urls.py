@@ -9,13 +9,13 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from inquest.users.views import UserViewSet, UserCreateViewSet
-from inquest.companies.views import CompanyViewSet
+# from inquest.companies.views import CompanyViewSet
 
 
 router = DefaultRouter()
 router.register(r"users", UserViewSet)
 router.register(r"users", UserCreateViewSet)
-router.register(r"companies", CompanyViewSet, basename="companies")
+# router.register(r"companies", CompanyViewSet, basename="companies")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

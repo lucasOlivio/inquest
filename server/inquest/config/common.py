@@ -10,7 +10,6 @@ APPS_DIR = (
 )
 
 env = environ.Env()
-env.read_env(env_file=str(BASE_DIR.path(".env")))
 
 INSTALLED_APPS = (
     "django.contrib.admin",
