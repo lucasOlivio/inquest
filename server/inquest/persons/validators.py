@@ -1,10 +1,8 @@
+from fordev.validator import cpf
 from rest_framework.serializers import ValidationError
 
-from validate_docbr import CPF
 
-
-def validate_cpf(cpf):
-    validator = CPF()
-    if not validator.validate(cpf):
+def validate_cpf(doc):
+    if not cpf(doc):
         raise ValidationError("CPF inválido!")
-    return cpf
+    return doc

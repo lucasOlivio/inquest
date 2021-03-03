@@ -1,26 +1,28 @@
+import re
+
 from django.db import models
-from django.utils import timezone
 
 from inquest.users.models import User
 
 
 class Person(models.Model):
-    """ Class for physical persons and legal persons model. """
+    """ Class for physical persons model. """
 
     name = models.CharField(
         verbose_name="Nome",
         max_length=255,
         help_text="Nome da pessoa.",
         null=False,
-        blank=False
+        blank=False,
     )
-    cpf = models.CharField(
+    _cpf = models.CharField(
         verbose_name="Nº CPF",
-        max_length=14,
+        max_length=11,
         help_text="Nº do CPF da pessoa.",
         unique=True,
         null=False,
-        blank=False
+        blank=False,
+        db_column="cpf",
     )
     user_created = models.ForeignKey(
         User,
@@ -51,7 +53,15 @@ class Person(models.Model):
     )
 
     def __str__(self):
-        return f'{self.name} - {self.cpf}'
+        return self.name
+
+    @property
+    def cpf(self):
+        return f"{self._cpf[:3]}.{self._cpf[3:6]}.{self._cpf[6:9]}-{self._cpf[9:11]}"
+
+    @cpf.setter
+    def cpf(self, val):
+        self._cpf = re.sub("[^0-9]", "", val)
 
     class Meta:
         ordering = ["-date_created"]

@@ -7,312 +7,591 @@
 	},
 	"item": [
 		{
-			"name": "Get token",
-			"event": [
+			"name": "Token",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "385c9ce0-e797-4564-8fc9-b91561b7a18c",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.collectionVariables.set(\"jwttoken\", pm.response.json().access);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Get token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c404883-dd15-4a47-ba81-20f9031cced2",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"jwttoken\", pm.response.json().access);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/token/",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8000",
-					"path": [
-						"api",
-						"token",
-						""
-					]
-				},
-				"description": "Requests a new jwt token to set for all requests"
-			},
-			"response": []
-		},
-		{
-			"name": "Create person",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5cc86fd0-9102-42d7-8b6f-73dc90042350",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.collectionVariables.set(\"person_id\", pm.response.json().id);"
-						],
-						"type": "text/javascript"
-					}
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						},
+						"description": "Requests a new jwt token to set for all requests"
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"test\",\n    \"cpf\": \"685.389.460-05\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Create person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5cc86fd0-9102-42d7-8b6f-73dc90042350",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"person_id\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						""
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"cpf\": \"685.389.460-05\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
+					},
+					"response": []
 				},
-				"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
-			},
-			"response": []
-		},
-		{
-			"name": "Patch person",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "8489cedd-e9d5-4a97-b539-084bbdc04f1a",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Test 2\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Patch person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8489cedd-e9d5-4a97-b539-084bbdc04f1a",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"{{person_id}}",
-						""
-					]
-				},
-				"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
-			},
-			"response": []
-		},
-		{
-			"name": "List person",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "0e6938d8-ee41-4bf0-b861-721d5e6fa314",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						""
-					]
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{person_id}}",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
+					},
+					"response": []
 				},
-				"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
-			},
-			"response": []
-		},
-		{
-			"name": "Update person",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "cc299358-3745-43e7-83cf-f7289dbc1277",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"test 3\",\n    \"cpf\": \"466.374.260-24\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "List person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e6938d8-ee41-4bf0-b861-721d5e6fa314",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/10/",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"10",
-						""
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
+					},
+					"response": []
 				},
-				"description": "Update all fields of a demand"
-			},
-			"response": []
-		},
-		{
-			"name": "Retrieve person",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "69eae79d-996f-48e9-a1fb-3f49ac154828",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Update person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc299358-3745-43e7-83cf-f7289dbc1277",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test 3\",\n    \"cpf\": \"466.374.260-24\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{person_id}}",
+								""
+							]
+						},
+						"description": "Update all fields of a demand"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69eae79d-996f-48e9-a1fb-3f49ac154828",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{person_id}}",
+								""
+							]
+						},
+						"description": "Retrieve one specific demand"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00211a79-2c81-42ab-83bb-d6ce905c6f45",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{person_id}}",
+								""
+							]
+						},
+						"description": "Delete demand from db"
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"{{person_id}}",
-						""
-					]
-				},
-				"description": "Retrieve one specific demand"
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Delete person",
-			"event": [
+			"name": "Company",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "00211a79-2c81-42ab-83bb-d6ce905c6f45",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(204);",
-							"});"
+					"name": "Create company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ead53032-038c-4f12-9374-09df5eb1d849",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"company_id\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Teste 1\",\n    \"fantasy_name\": \"Teste 1\",\n    \"state\": \"SP\",\n    \"cnpj\": \"62.182.867/0001-62\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8136c12b-3c0d-4907-a276-5a128732a264",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Test 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
+					},
+					"response": []
+				},
+				{
+					"name": "List company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2120205e-8962-422c-a898-11780dd3e0c0",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								""
+							]
+						},
+						"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
+					},
+					"response": []
+				},
+				{
+					"name": "Update company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9a81af3-c8a0-4169-b180-87ed595945ed",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Teste 3\",\n    \"fantasy_name\": \"Teste 3\",\n    \"state\": \"BA\",\n    \"cnpj\": \"62.182.867/0001-62\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								""
+							]
+						},
+						"description": "Update all fields of a demand"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2bdf8fd-3a7c-44c4-83cd-d9e833f6ff1c",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								""
+							]
+						},
+						"description": "Retrieve one specific demand"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f999280-03a9-4ca1-8289-6f1552d2446b",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								""
+							]
+						},
+						"description": "Delete demand from db"
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"{{person_id}}",
-						""
-					]
-				},
-				"description": "Delete demand from db"
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -349,38 +628,44 @@
 	],
 	"variable": [
 		{
-			"id": "e2744ffa-a6da-4662-a060-e29debcdcd4e",
+			"id": "17287278-f956-4d07-828b-3090c96b8996",
 			"key": "authService",
 			"value": "http://localhost:8000/api/token/",
 			"type": "string"
 		},
 		{
-			"id": "2841102f-be11-4ae2-87a7-b1dbf7fff811",
+			"id": "f39f41d3-cd02-4771-9a71-d784801f9b6b",
 			"key": "username",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "1f256434-a132-40f5-914b-ce287cf0909a",
+			"id": "28cb1c63-b8b0-48a0-b2df-88ad76a1c3cd",
 			"key": "password",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "577f2752-d941-4e0d-b241-d64595639431",
+			"id": "1e64360d-98d9-4076-8f9f-1617cc3e5c6e",
 			"key": "baseUrl",
 			"value": "http://localhost:8000",
 			"type": "string"
 		},
 		{
-			"id": "5bb56916-38fc-4b66-8f30-0d0704fc146c",
+			"id": "ed39d22e-8d28-4dca-b73d-c776c78bf78e",
 			"key": "jwttoken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "280170e6-1987-43c8-8745-d7c8332f2f71",
+			"id": "6fc7bb1d-21da-4d1c-99a7-613a70e1eea4",
 			"key": "person_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "db696d10-d638-4cf4-84eb-c3c9bc725b27",
+			"key": "company_id",
 			"value": "",
 			"type": "string"
 		}

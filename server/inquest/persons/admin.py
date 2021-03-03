@@ -1,10 +1,11 @@
 from django.contrib import admin
+
 from inquest.persons.models import Person
 
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    exclude = ("user_created", "user_updated", )
+    exclude = ("user_created", "user_updated")
     list_display = (
         "name",
         "cpf",
@@ -14,9 +15,4 @@ class PersonAdmin(admin.ModelAdmin):
         "date_updated",
     )
     list_filter = ("date_created", "date_updated")
-    search_fields = (
-        "name",
-        "cpf",
-        "user_created__username",
-        "user_updated__username",
-    )
+    search_fields = ("name", "cpf", "user_created__username", "user_updated__username")

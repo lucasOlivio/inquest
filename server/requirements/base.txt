@@ -2,7 +2,7 @@
 Django==3.1.5
 django-redis==4.12.1
 django-environ==0.4.5
-validate-docbr==1.8.2
+fordev==0.2.2
 
 # For the persistence stores
 psycopg2-binary==2.8.6

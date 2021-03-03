@@ -1,22 +1,18 @@
-from django.urls import reverse
-
-from rest_framework.test import APITestCase
-from rest_framework import status
-
-from nose.tools import eq_
 import factory
-from validate_docbr import CPF
+from django.urls import reverse
+from fordev.generator import cpf
+from nose.tools import eq_
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 from inquest.persons.models import Person
-from inquest.persons.test.factories import PersonFactory
 from inquest.persons.serializers import PersonSerializer
-
+from inquest.persons.test.factories import PersonFactory
 from inquest.users.test.factories import UserFactory
 
 
 class TestPersonListTestCase(APITestCase):
-    """ Tests /persons list operations.
-    """
+    """Tests /persons list operations."""
 
     def setUp(self):
         self.user = UserFactory()
@@ -39,7 +35,7 @@ class TestPersonListTestCase(APITestCase):
         # Set testing persons
         PersonFactory(user_created=self.user)
         user2 = UserFactory()
-        PersonFactory(cpf=CPF().generate(), user_created=user2)
+        PersonFactory(cpf=cpf(formatting=True), user_created=user2)
         # Test response and results
         response = self.client.get(self.url)
         eq_(response.status_code, status.HTTP_200_OK)
@@ -51,8 +47,7 @@ class TestPersonListTestCase(APITestCase):
 
 
 class TestPersonDetailTestCase(APITestCase):
-    """ Tests /persons detail operations.
-    """
+    """Tests /persons detail operations."""
 
     def setUp(self):
         self.user = UserFactory()
@@ -65,7 +60,7 @@ class TestPersonDetailTestCase(APITestCase):
         eq_(response.status_code, status.HTTP_200_OK)
 
     def test_patch_request_updates_a_person(self):
-        new_cpf = CPF().generate()
+        new_cpf = cpf(formatting=True)
         payload = {"cpf": new_cpf}
         response = self.client.patch(self.url, payload)
         eq_(response.status_code, status.HTTP_200_OK)

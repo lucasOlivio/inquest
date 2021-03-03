@@ -1,13 +1,9 @@
-import environ
 import dj_database_url
+import environ
 
-BASE_DIR = (
-    environ.Path(__file__) - 3
-)
+BASE_DIR = environ.Path(__file__) - 3
 
-APPS_DIR = (
-    environ.Path(__file__) - 2
-)
+APPS_DIR = environ.Path(__file__) - 2
 
 env = environ.Env()
 
@@ -26,6 +22,7 @@ INSTALLED_APPS = (
     # Your apps
     "inquest.users",
     "inquest.persons",
+    "inquest.companies",
 )
 
 # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -85,7 +82,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": STATICFILES_DIRS,
-        "APP_DIRS": True,
+        # "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",

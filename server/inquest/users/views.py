@@ -1,13 +1,12 @@
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-
-from rest_framework import viewsets, mixins
+from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
-from .models import User
-from .permissions import IsUserOrReadOnly
-from .serializers import CreateUserSerializer, UserSerializer
+from inquest.users.models import User
+from inquest.users.permissions import IsUserOrReadOnly
+from inquest.users.serializers import CreateUserSerializer, UserSerializer
 
 
 class UserViewSet(
