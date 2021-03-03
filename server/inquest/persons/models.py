@@ -11,11 +11,16 @@ class Person(models.Model):
         verbose_name="Nome",
         max_length=255,
         help_text="Nome da pessoa.",
+        null=False,
+        blank=False
     )
     cpf = models.CharField(
         verbose_name="Nº CPF",
         max_length=14,
         help_text="Nº do CPF da pessoa.",
+        unique=True,
+        null=False,
+        blank=False
     )
     user_created = models.ForeignKey(
         User,

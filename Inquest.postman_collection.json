@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "47fde2d4-8e31-4d15-afa9-1282ff05dab8",
+		"_postman_id": "5a732392-44a9-4833-a0d6-8cc08a81de8b",
 		"name": "Inquest",
 		"description": "Microserviço para gerenciar empresas e posses.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4021a9dd-66ef-4950-96c2-5e4750d7108d",
+						"id": "385c9ce0-e797-4564-8fc9-b91561b7a18c",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -54,18 +54,18 @@
 			"response": []
 		},
 		{
-			"name": "Create demand",
+			"name": "Create person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "89e2638d-b15d-4099-81df-040068476454",
+						"id": "5cc86fd0-9102-42d7-8b6f-73dc90042350",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(201);",
 							"});",
 							"",
-							"pm.collectionVariables.set(\"demand_id\", pm.response.json().id);"
+							"pm.collectionVariables.set(\"person_id\", pm.response.json().id);"
 						],
 						"type": "text/javascript"
 					}
@@ -73,16 +73,10 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"test 2\",\n    \"is_completed\": false,\n    \"delivery_state\": \"sp\",\n    \"delivery_city\": \"rp\",\n    \"delivery_street\": \"asdf\",\n    \"delivery_number\": 12,\n    \"delivery_complement\": \"asdf\",\n    \"delivery_cep\": \"344343\",\n    \"delivery_name\": \"fasdf\",\n    \"cellphone\": \"34234234\",\n    \"email\": \"asdfasd\"\n}",
+					"raw": "{\n    \"name\": \"test\",\n    \"cpf\": \"685.389.460-05\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -90,7 +84,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/",
+					"raw": "http://localhost:8000/api/v1/persons/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -99,7 +93,7 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
+						"persons",
 						""
 					]
 				},
@@ -108,12 +102,12 @@
 			"response": []
 		},
 		{
-			"name": "Patch demand",
+			"name": "Patch person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f0e8d2c3-7eea-4c15-93a4-738bd9a2eeac",
+						"id": "8489cedd-e9d5-4a97-b539-084bbdc04f1a",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -134,7 +128,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Test patch\"\n}",
+					"raw": "{\n    \"name\": \"Test 2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,7 +136,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -151,8 +145,8 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
-						"{{demand_id}}",
+						"persons",
+						"{{person_id}}",
 						""
 					]
 				},
@@ -161,12 +155,12 @@
 			"response": []
 		},
 		{
-			"name": "List demands",
+			"name": "List person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "be3284ef-d932-46c4-9c76-1dbd83c79f73",
+						"id": "0e6938d8-ee41-4bf0-b861-721d5e6fa314",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -180,7 +174,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/",
+					"raw": "http://localhost:8000/api/v1/persons/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -189,7 +183,7 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
+						"persons",
 						""
 					]
 				},
@@ -198,12 +192,12 @@
 			"response": []
 		},
 		{
-			"name": "Update demand",
+			"name": "Update person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "01245009-b8f0-4ca2-828a-78534b649bc1",
+						"id": "cc299358-3745-43e7-83cf-f7289dbc1277",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -218,7 +212,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"test PUT\",\n    \"is_completed\": false,\n    \"delivery_state\": \"sp\",\n    \"delivery_city\": \"rp\",\n    \"delivery_street\": \"test street\",\n    \"delivery_number\": 12,\n    \"delivery_complement\": \"test\",\n    \"delivery_cep\": \"test\",\n    \"delivery_name\": \"test\",\n    \"cellphone\": \"test\",\n    \"email\": \"test\"\n}",
+					"raw": "{\n    \"name\": \"test 3\",\n    \"cpf\": \"466.374.260-24\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -226,7 +220,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"raw": "http://localhost:8000/api/v1/persons/10/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -235,8 +229,8 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
-						"{{demand_id}}",
+						"persons",
+						"10",
 						""
 					]
 				},
@@ -245,12 +239,12 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve demand",
+			"name": "Retrieve person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "7fcbc4e6-8f57-41f3-bd87-c8cae0fd9161",
+						"id": "69eae79d-996f-48e9-a1fb-3f49ac154828",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -264,7 +258,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -273,8 +267,8 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
-						"{{demand_id}}",
+						"persons",
+						"{{person_id}}",
 						""
 					]
 				},
@@ -283,55 +277,12 @@
 			"response": []
 		},
 		{
-			"name": "Set completed",
+			"name": "Delete person",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "6b4e8678-8231-40fc-a260-81920eb87102",
-						"exec": [
-							"pm.test(\"Status test\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/set_completed/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"demands",
-						"{{demand_id}}",
-						"set_completed",
-						""
-					]
-				},
-				"description": "Set demand as completed and set its completed date"
-			},
-			"response": []
-		},
-		{
-			"name": "Delete demand",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a7c13aaa-77b9-4020-aa1e-25b211b0f3af",
+						"id": "00211a79-2c81-42ab-83bb-d6ce905c6f45",
 						"exec": [
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(204);",
@@ -345,7 +296,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/v1/demands/{{demand_id}}/",
+					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -354,8 +305,8 @@
 					"path": [
 						"api",
 						"v1",
-						"demands",
-						"{{demand_id}}",
+						"persons",
+						"{{person_id}}",
 						""
 					]
 				},
@@ -378,7 +329,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "f5d76902-aa79-44ae-a89b-22bffb0e149e",
+				"id": "86e3d7bd-8307-4ee3-b09b-3afc48338995",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -388,7 +339,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "f4340bce-0a95-4dc3-822c-7eebd4037cc0",
+				"id": "aacf3607-2c4a-46e1-bec7-c8ac1738758b",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -398,38 +349,38 @@
 	],
 	"variable": [
 		{
-			"id": "664e5c4b-cdd2-4424-ab1a-03248d258ecb",
+			"id": "e2744ffa-a6da-4662-a060-e29debcdcd4e",
 			"key": "authService",
 			"value": "http://localhost:8000/api/token/",
 			"type": "string"
 		},
 		{
-			"id": "02a4be0e-cf1f-4014-b26e-c6f75191a7bf",
+			"id": "2841102f-be11-4ae2-87a7-b1dbf7fff811",
 			"key": "username",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "e6bbc5c2-fbbf-47a7-9516-6f6c970f17a5",
+			"id": "1f256434-a132-40f5-914b-ce287cf0909a",
 			"key": "password",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "1eaaf7a7-0032-49a4-baaf-8be9d1061c5e",
+			"id": "577f2752-d941-4e0d-b241-d64595639431",
 			"key": "baseUrl",
 			"value": "http://localhost:8000",
 			"type": "string"
 		},
 		{
-			"id": "fe088ee0-a275-4b80-8fee-d68e6e58adb3",
-			"key": "demand_id",
+			"id": "5bb56916-38fc-4b66-8f30-0d0704fc146c",
+			"key": "jwttoken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9d4dcffa-cf7f-4b2d-8acc-fe35726a9c25",
-			"key": "jwttoken",
+			"id": "280170e6-1987-43c8-8745-d7c8332f2f71",
+			"key": "person_id",
 			"value": "",
 			"type": "string"
 		}

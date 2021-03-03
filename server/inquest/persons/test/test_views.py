@@ -4,16 +4,14 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 
 from nose.tools import eq_
-from faker import Faker
 import factory
+from validate_docbr import CPF
 
 from inquest.persons.models import Person
 from inquest.persons.test.factories import PersonFactory
 from inquest.persons.serializers import PersonSerializer
 
 from inquest.users.test.factories import UserFactory
-
-fake = Faker()
 
 
 class TestPersonListTestCase(APITestCase):
@@ -35,13 +33,13 @@ class TestPersonListTestCase(APITestCase):
         eq_(response.status_code, status.HTTP_201_CREATED)
 
         person = Person.objects.get(pk=response.data.get("id"))
-        eq_(person.description, self.person_data.get("description"))
+        eq_(person.cpf, self.person_data.get("cpf"))
 
     def test_get_list_returns_only_my_persons(self):
         # Set testing persons
         PersonFactory(user_created=self.user)
         user2 = UserFactory()
-        PersonFactory(user_created=user2)
+        PersonFactory(cpf=CPF().generate(), user_created=user2)
         # Test response and results
         response = self.client.get(self.url)
         eq_(response.status_code, status.HTTP_200_OK)
@@ -60,20 +58,20 @@ class TestPersonDetailTestCase(APITestCase):
         self.user = UserFactory()
         self.client.force_authenticate(user=self.user)
         self.person = PersonFactory(user_created=self.user)
-        self.url = reverse("comapnies-detail", kwargs={"pk": self.person.pk})
+        self.url = reverse("persons-detail", kwargs={"pk": self.person.pk})
 
     def test_get_request_returns_a_given_person(self):
         response = self.client.get(self.url)
         eq_(response.status_code, status.HTTP_200_OK)
 
     def test_patch_request_updates_a_person(self):
-        new_description = fake.text()
-        payload = {"description": new_description}
+        new_cpf = CPF().generate()
+        payload = {"cpf": new_cpf}
         response = self.client.patch(self.url, payload)
         eq_(response.status_code, status.HTTP_200_OK)
 
         person = Person.objects.get(pk=self.person.id)
-        eq_(person.description, new_description)
+        eq_(person.cpf, new_cpf)
 
     def test_put_request_updates_a_person(self):
         payload = factory.build(dict, FACTORY_CLASS=PersonFactory)
@@ -81,15 +79,7 @@ class TestPersonDetailTestCase(APITestCase):
         eq_(response.status_code, status.HTTP_200_OK)
 
         person = Person.objects.get(pk=self.person.id)
-        eq_(person.description, payload["description"])
-
-    def test_set_person_completed(self):
-        custom_action = reverse("person-set-completed", kwargs={"pk": self.person.pk})
-        response = self.client.post(custom_action)
-        eq_(response.status_code, status.HTTP_200_OK)
-
-        person = Person.objects.get(pk=self.person.id)
-        eq_(person.is_completed, True)
+        eq_(person.cpf, payload["cpf"])
 
     def test_delete_request_deletes_a_person(self):
         response = self.client.delete(self.url)
