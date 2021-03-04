@@ -14,8 +14,9 @@ class CompanySerializer(serializers.ModelSerializer):
         max_length=18,
         validators=[validate_cnpj],
     )
-    physical_owners = serializers.StringRelatedField()
-    legal_owners = serializers.StringRelatedField()
+    companies_owned = serializers.StringRelatedField(many=True)
+    physical_owners = serializers.StringRelatedField(many=True)
+    legal_owners = serializers.StringRelatedField(many=True)
     user_created = serializers.StringRelatedField()
     user_updated = serializers.StringRelatedField()
 
@@ -38,6 +39,7 @@ class CompanySerializer(serializers.ModelSerializer):
             "fantasy_name",
             "state",
             "cnpj",
+            "companies_owned",
             "physical_owners",
             "legal_owners",
             "user_created",
@@ -46,6 +48,7 @@ class CompanySerializer(serializers.ModelSerializer):
             "date_updated",
         )
         read_only_fields = (
+            "companies_owned",
             "physical_owners",
             "legal_owners",
             "user_created",

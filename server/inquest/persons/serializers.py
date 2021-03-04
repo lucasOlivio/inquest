@@ -12,6 +12,7 @@ class PersonSerializer(serializers.ModelSerializer):
         max_length=14,
         validators=[validate_cpf],
     )
+    companies_owned = serializers.StringRelatedField(many=True)
     user_created = serializers.StringRelatedField()
     user_updated = serializers.StringRelatedField()
 
@@ -32,12 +33,14 @@ class PersonSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "cpf",
+            "companies_owned",
             "user_created",
             "date_created",
             "user_updated",
             "date_updated",
         )
         read_only_fields = (
+            "companies_owned",
             "user_created",
             "date_created",
             "user_updated",
