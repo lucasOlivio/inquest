@@ -2,7 +2,7 @@
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 [![License](https://img.shields.io/npm/l/react-native-smart-badge.svg)](https://github.com/lucasOlivio/inquest/blob/master/LICENSE)
 
-Test project to manage companies and its assets.
+Test project to manage companies, persons and its assets.
 
 ------------------------------------------------------------------------------------------------------------------------
 # SERVER
@@ -17,6 +17,8 @@ Test project to manage companies and its assets.
 
 - [Pre-commit](https://pre-commit.com/#install)
 
+- [Newman](https://www.npmjs.com/package/newman)
+
 # Local Development
 
 - Create a folder named "local" inside the .envs and set the same variables as the .envs/test files
@@ -30,6 +32,12 @@ Run tests and tests coverage in container:
 
 ```bash
 docker-compose -f docker-compose.local.yml run --rm server coverage run -m pytest
+```
+
+Run tests with postman collection:
+
+```bash
+newman run Inquest.postman_collection.json
 ```
 
 Run any command inside the docker container:
