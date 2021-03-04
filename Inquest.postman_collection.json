@@ -106,7 +106,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
+						"description": "Create new person"
 					},
 					"response": []
 				},
@@ -159,7 +159,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
+						"description": "Patch method to update only specific fields and keep other fields with the same value"
 					},
 					"response": []
 				},
@@ -196,7 +196,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
+						"description": "List all persons that authenticated user created"
 					},
 					"response": []
 				},
@@ -243,7 +243,7 @@
 								""
 							]
 						},
-						"description": "Update all fields of a demand"
+						"description": "Update all fields of a person"
 					},
 					"response": []
 				},
@@ -281,7 +281,7 @@
 								""
 							]
 						},
-						"description": "Retrieve one specific demand"
+						"description": "Retrieve one specific person"
 					},
 					"response": []
 				},
@@ -319,7 +319,7 @@
 								""
 							]
 						},
-						"description": "Delete demand from db"
+						"description": "Delete person from db"
 					},
 					"response": []
 				}
@@ -373,7 +373,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nCreate new demand with all the fields filled"
+						"description": "Create new company with all the fields filled"
 					},
 					"response": []
 				},
@@ -426,7 +426,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nPatch method to update only specific fields and keep other fields with the same value"
+						"description": "Patch method to update only specific fields and keep other fields with the same value"
 					},
 					"response": []
 				},
@@ -463,7 +463,7 @@
 								""
 							]
 						},
-						"description": "-- REQUIRES BEARER TOKEN --\nList all demands that authenticated user created"
+						"description": "List all companies that authenticated user created"
 					},
 					"response": []
 				},
@@ -510,7 +510,7 @@
 								""
 							]
 						},
-						"description": "Update all fields of a demand"
+						"description": "Update all fields of a company"
 					},
 					"response": []
 				},
@@ -548,7 +548,189 @@
 								""
 							]
 						},
-						"description": "Retrieve one specific demand"
+						"description": "Retrieve one specific company"
+					},
+					"response": []
+				},
+				{
+					"name": "Create person test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19e391a3-b76d-4e23-8082-e24f81d52cbc",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"person_id\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"cpf\": \"682.228.300-58\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								""
+							]
+						},
+						"description": "Creates new person for testing."
+					},
+					"response": []
+				},
+				{
+					"name": "Add owner",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcde7dcd-02d4-457b-acf1-f959c3f69472",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doc\": \"682.228.300-58\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/add_owner/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								"add_owner",
+								""
+							]
+						},
+						"description": "Add physical owner to the company created"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove owner",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3149c1ac-7e3a-4bb8-a3f1-67b87c80c00a",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doc\": \"682.228.300-58\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/companies/{{company_id}}/remove_owner/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"{{company_id}}",
+								"remove_owner",
+								""
+							]
+						},
+						"description": "Remove physical owner from the company created"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete person test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e209d32e-2ee9-41be-ba74-a6d8ffe70232",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{person_id}}",
+								""
+							]
+						},
+						"description": "Delete person from db"
 					},
 					"response": []
 				},
@@ -586,7 +768,7 @@
 								""
 							]
 						},
-						"description": "Delete demand from db"
+						"description": "Delete company from db"
 					},
 					"response": []
 				}
@@ -628,43 +810,43 @@
 	],
 	"variable": [
 		{
-			"id": "17287278-f956-4d07-828b-3090c96b8996",
+			"id": "5872cc7d-5eaa-4855-9556-8cd2e0fa457d",
 			"key": "authService",
 			"value": "http://localhost:8000/api/token/",
 			"type": "string"
 		},
 		{
-			"id": "f39f41d3-cd02-4771-9a71-d784801f9b6b",
+			"id": "457fc23f-587d-4fee-b639-5554339b5c1a",
 			"key": "username",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "28cb1c63-b8b0-48a0-b2df-88ad76a1c3cd",
+			"id": "9daddfd1-8711-4751-9c85-4ccd127f5b19",
 			"key": "password",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "1e64360d-98d9-4076-8f9f-1617cc3e5c6e",
+			"id": "9e64bf43-6c97-48d5-aee0-652c435f57cc",
 			"key": "baseUrl",
 			"value": "http://localhost:8000",
 			"type": "string"
 		},
 		{
-			"id": "ed39d22e-8d28-4dca-b73d-c776c78bf78e",
+			"id": "0d023a7b-0933-4c20-88c5-091d689880e7",
 			"key": "jwttoken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6fc7bb1d-21da-4d1c-99a7-613a70e1eea4",
+			"id": "ac78c38a-7ecc-4112-b34d-ef6823434f76",
 			"key": "person_id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "db696d10-d638-4cf4-84eb-c3c9bc725b27",
+			"id": "4122394d-ee1a-475e-9fe6-b9e5a484a622",
 			"key": "company_id",
 			"value": "",
 			"type": "string"
