@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/lucasOlivio/inquest.svg?branch=master)](https://travis-ci.com/github/lucasOlivio/inquest)
+[![Build Status](https://travis-ci.com/lucasOlivio/inquest.svg?branch=main)](https://travis-ci.com/github/lucasOlivio/inquest)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 [![License](https://img.shields.io/npm/l/react-native-smart-badge.svg)](https://github.com/lucasOlivio/inquest/blob/master/LICENSE)
 
