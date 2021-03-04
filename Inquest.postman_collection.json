@@ -32,7 +32,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
+							"raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -221,7 +221,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test 3\",\n    \"cpf\": \"466.374.260-24\"\n}",
+							"raw": "{\n    \"name\": \"test 3\",\n    \"cpf\": \"{{cpf}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -284,50 +284,12 @@
 						"description": "Retrieve one specific person"
 					},
 					"response": []
-				},
-				{
-					"name": "Delete person",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "00211a79-2c81-42ab-83bb-d6ce905c6f45",
-								"exec": [
-									"pm.test(\"Status test\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"v1",
-								"persons",
-								"{{person_id}}",
-								""
-							]
-						},
-						"description": "Delete person from db"
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Company",
+			"name": "Companies",
 			"item": [
 				{
 					"name": "Create company",
@@ -553,54 +515,6 @@
 					"response": []
 				},
 				{
-					"name": "Create person test",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "19e391a3-b76d-4e23-8082-e24f81d52cbc",
-								"exec": [
-									"pm.test(\"Status test\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"pm.collectionVariables.set(\"person_id\", pm.response.json().id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"test\",\n    \"cpf\": \"682.228.300-58\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8000/api/v1/persons/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"v1",
-								"persons",
-								""
-							]
-						},
-						"description": "Creates new person for testing."
-					},
-					"response": []
-				},
-				{
 					"name": "Add owner",
 					"event": [
 						{
@@ -621,7 +535,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doc\": \"682.228.300-58\"\n}",
+							"raw": "{\n    \"doc\": \"{{cpf}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -657,7 +571,7 @@
 								"id": "3149c1ac-7e3a-4bb8-a3f1-67b87c80c00a",
 								"exec": [
 									"pm.test(\"Status test\", function () {",
-									"    pm.response.to.have.status(200);",
+									"    pm.response.to.have.status(204);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -665,11 +579,11 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doc\": \"682.228.300-58\"\n}",
+							"raw": "{\n    \"doc\": \"{{cpf}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -693,44 +607,6 @@
 							]
 						},
 						"description": "Remove physical owner from the company created"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete person test",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "e209d32e-2ee9-41be-ba74-a6d8ffe70232",
-								"exec": [
-									"pm.test(\"Status test\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"v1",
-								"persons",
-								"{{person_id}}",
-								""
-							]
-						},
-						"description": "Delete person from db"
 					},
 					"response": []
 				},
@@ -773,7 +649,356 @@
 					"response": []
 				}
 			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eb7e3d08-f565-499f-ad7d-6520718c38be",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "85dfea0f-facc-42c3-a2de-aad2768133ab",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Ownerships",
+			"item": [
+				{
+					"name": "Create ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6edbb29e-f795-47ed-91dc-829eafb5b7ae",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"ownership_id\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"value\": 11.11,\n    \"owner\": {{person_id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								""
+							]
+						},
+						"description": "Create new ownership"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fba56a32-534f-4975-8842-b14be44df75f",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token 7fd732e457fff4e5fb4ac381e30df06c086b2d74"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/{{ownership_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								"{{ownership_id}}",
+								""
+							]
+						},
+						"description": "Patch method to update only specific fields and keep other fields with the same value"
+					},
+					"response": []
+				},
+				{
+					"name": "List ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ff65cdb-d54e-4818-9ade-fb4904461b9c",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								""
+							]
+						},
+						"description": "List all ownerships that authenticated user created"
+					},
+					"response": []
+				},
+				{
+					"name": "Update ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cfa3804e-f87a-4327-a893-c17ed04bf7a8",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test 3\",\n    \"value\": 77.7,\n    \"owner\": {{person_id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/{{ownership_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								"{{ownership_id}}",
+								""
+							]
+						},
+						"description": "Update all fields of an ownership"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3d425267-c018-465b-beed-065de911fc72",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/{{ownership_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								"{{ownership_id}}",
+								""
+							]
+						},
+						"description": "Retrieve one specific ownership"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ownership",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a8620393-3fec-4fad-a923-de796d5fd55c",
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/ownerships/{{ownership_id}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"ownerships",
+								"{{ownership_id}}",
+								""
+							]
+						},
+						"description": "Delete ownership from db"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2fcaa596-14c5-4ee7-ba2d-2b0bf28caaf4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "562cf711-89bb-4c6e-b993-13aae990a840",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00211a79-2c81-42ab-83bb-d6ce905c6f45",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/persons/{{person_id}}/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"persons",
+						"{{person_id}}",
+						""
+					]
+				},
+				"description": "Delete person from db"
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -810,44 +1035,56 @@
 	],
 	"variable": [
 		{
-			"id": "5872cc7d-5eaa-4855-9556-8cd2e0fa457d",
+			"id": "8cf329dd-e81d-4772-98a6-0c97cfb01458",
 			"key": "authService",
 			"value": "http://localhost:8000/api/token/",
 			"type": "string"
 		},
 		{
-			"id": "457fc23f-587d-4fee-b639-5554339b5c1a",
+			"id": "f31be331-bb4a-4b16-a9cc-3fc3ac8e0c35",
 			"key": "username",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "9daddfd1-8711-4751-9c85-4ccd127f5b19",
+			"id": "f88ad5e0-ebcc-42eb-95cd-ab5d4bf83522",
 			"key": "password",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "9e64bf43-6c97-48d5-aee0-652c435f57cc",
+			"id": "1424f8f0-b976-4d2e-b3c5-29675c7e7059",
 			"key": "baseUrl",
 			"value": "http://localhost:8000",
 			"type": "string"
 		},
 		{
-			"id": "0d023a7b-0933-4c20-88c5-091d689880e7",
+			"id": "ca19700a-efb6-4f63-9881-5e8011bd2252",
 			"key": "jwttoken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ac78c38a-7ecc-4112-b34d-ef6823434f76",
+			"id": "548c062f-3733-4c11-9805-03edd9048c55",
 			"key": "person_id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "4122394d-ee1a-475e-9fe6-b9e5a484a622",
+			"id": "cfe7c8e8-71c9-4282-b15b-b20d15d52f6e",
 			"key": "company_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "349f7779-b4b6-48f7-9278-8f22c0c4ef76",
+			"key": "cpf",
+			"value": "466.374.260-24",
+			"type": "string"
+		},
+		{
+			"id": "a1a0c1b1-cd4c-4626-b068-30b753bed729",
+			"key": "ownership_id",
 			"value": "",
 			"type": "string"
 		}

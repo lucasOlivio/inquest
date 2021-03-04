@@ -2,9 +2,10 @@ from rest_framework import serializers
 
 from inquest.persons.models import Person
 from inquest.persons.validators import validate_cpf
+from inquest.serializers import DefaultFieldsSerializer
 
 
-class PersonSerializer(serializers.ModelSerializer):
+class PersonSerializer(DefaultFieldsSerializer):
     """ Serializer to create, list, update and delete persons """
 
     name = serializers.CharField(max_length=255)
@@ -12,37 +13,19 @@ class PersonSerializer(serializers.ModelSerializer):
         max_length=14,
         validators=[validate_cpf],
     )
-    companies_owned = serializers.StringRelatedField(many=True)
-    user_created = serializers.StringRelatedField()
-    user_updated = serializers.StringRelatedField()
+    ownerships = serializers.StringRelatedField(many=True, read_only=True)
+    companies_owned = serializers.StringRelatedField(many=True, read_only=True)
 
-    def update(self, instance, valid_data):
-        """ Set default user updated for current user """
-        valid_data["user_updated"] = self.context["request"].user
-        return super().update(instance, valid_data)
-
-    def create(self, valid_data):
-        """ Set default user created for current user """
-        valid_data["user_created"] = self.context["request"].user
-        valid_data["user_updated"] = self.context["request"].user
-        return Person.objects.create(**valid_data)
-
-    class Meta:
+    class Meta(DefaultFieldsSerializer.Meta):
         model = Person
         fields = (
             "id",
             "name",
             "cpf",
+            "ownerships",
             "companies_owned",
-            "user_created",
-            "date_created",
-            "user_updated",
-            "date_updated",
-        )
+        ) + DefaultFieldsSerializer.Meta.fields
         read_only_fields = (
+            "ownerships",
             "companies_owned",
-            "user_created",
-            "date_created",
-            "user_updated",
-            "date_updated",
-        )
+        ) + DefaultFieldsSerializer.Meta.read_only_fields

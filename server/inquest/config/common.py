@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     "inquest.users",
     "inquest.persons",
     "inquest.companies",
+    "inquest.ownerships",
 )
 
 # https://docs.djangoproject.com/en/2.0/topics/http/middleware/

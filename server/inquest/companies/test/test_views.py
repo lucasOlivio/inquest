@@ -102,12 +102,12 @@ class TestCompanyDetailTestCase(APITestCase):
             "companies-remove-owner", kwargs={"pk": self.company.pk}
         )
         data = {"doc": self.company2.cnpj}
-        response = self.client.post(custom_action, data=data)
-        eq_(response.status_code, status.HTTP_200_OK)
-        # Add physical owner
+        response = self.client.delete(custom_action, data=data)
+        eq_(response.status_code, status.HTTP_204_NO_CONTENT)
+        # Remove physical owner
         data["doc"] = self.person.cpf
-        response = self.client.post(custom_action, data=data)
-        eq_(response.status_code, status.HTTP_200_OK)
+        response = self.client.delete(custom_action, data=data)
+        eq_(response.status_code, status.HTTP_204_NO_CONTENT)
 
         company = Company.objects.get(pk=self.company.id)
         eq_(company.legal_owners.count(), 0)

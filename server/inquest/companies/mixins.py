@@ -30,7 +30,7 @@ class ManageOwnersMixin(object):
             )
         return Response("OK", status=status.HTTP_201_CREATED)
 
-    @action(detail=True, methods=["post"])
+    @action(detail=True, methods=["delete"])
     def remove_owner(self, request, pk=None):
         instance = self.get_object()
         doc = request.data.get("doc", None)
@@ -46,4 +46,4 @@ class ManageOwnersMixin(object):
             return Response(
                 "Nª de documento inválido!", status=status.HTTP_400_BAD_REQUEST
             )
-        return Response("OK", status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
