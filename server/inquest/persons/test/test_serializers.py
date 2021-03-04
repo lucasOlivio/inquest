@@ -10,6 +10,8 @@ pytestmark = pytest.mark.django_db
 
 
 class TestCreatePersonSerializer(TestCase):
+    """ Tests PersonSerializer creation and functions. """
+
     def setUp(self):
         self.person_data = model_to_dict(PersonFactory.build())
         self.person_data["cpf"] = self.person_data["_cpf"]

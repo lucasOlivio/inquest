@@ -11,7 +11,7 @@ from inquest.persons.models import Person
 
 
 class ManageOwnersMixin(object):
-    """ Add or remove owners from companies accordingly to owner's type """
+    """ Add or remove owners from companies accordingly to owner's type. """
 
     @action(detail=True, methods=["post"])
     def add_owner(self, request, pk=None):

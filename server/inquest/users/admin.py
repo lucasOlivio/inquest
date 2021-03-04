@@ -6,12 +6,13 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
+    """ Custom admin panel configuration for User model. """
+
     list_display = (
         "username",
         "email",
         "first_name",
         "last_name",
-        "type_user",
         "is_active",
         "date_joined",
     )

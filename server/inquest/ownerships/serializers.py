@@ -6,7 +6,7 @@ from inquest.serializers import DefaultFieldsSerializer
 
 
 class OwnershipSerializer(DefaultFieldsSerializer):
-    """ Serializer to create, list, update and delete person's ownerships """
+    """ Serializer to create, list, update and delete person's ownerships. """
 
     name = serializers.CharField(max_length=255)
     value = serializers.FloatField(required=False)

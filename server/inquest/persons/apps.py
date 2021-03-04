@@ -2,6 +2,8 @@ from django.apps import AppConfig
 
 
 class PersonsConfig(AppConfig):
+    """ App configuration for persons app. """
+
     name = "inquest.persons"
     verbose_name = "Person"
 

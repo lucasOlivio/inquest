@@ -10,6 +10,8 @@ pytestmark = pytest.mark.django_db
 
 
 class TestCreateCompanySerializer(TestCase):
+    """ Tests CompanySerializer creation and functions. """
+
     def setUp(self):
         self.company_data = model_to_dict(CompanyFactory.build())
         self.company_data["cnpj"] = self.company_data["_cnpj"]

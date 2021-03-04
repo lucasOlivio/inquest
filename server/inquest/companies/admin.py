@@ -5,6 +5,8 @@ from inquest.companies.models import Company
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
+    """ Custom admin panel configuration for Company model. """
+
     exclude = ("user_created", "user_updated")
     list_display = (
         "company_name",

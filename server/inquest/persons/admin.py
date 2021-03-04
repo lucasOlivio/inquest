@@ -5,6 +5,8 @@ from inquest.persons.models import Person
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
+    """ Custom admin panel configuration for Person model. """
+
     exclude = ("user_created", "user_updated")
     list_display = (
         "name",

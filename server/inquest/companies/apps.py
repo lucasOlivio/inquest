@@ -2,6 +2,8 @@ from django.apps import AppConfig
 
 
 class CompaniesConfig(AppConfig):
+    """ App configuration for companies app. """
+
     name = "inquest.companies"
     verbose_name = "Company"
 

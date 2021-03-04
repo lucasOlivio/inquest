@@ -6,7 +6,7 @@ from inquest.serializers import DefaultFieldsSerializer
 
 
 class PersonSerializer(DefaultFieldsSerializer):
-    """ Serializer to create, list, update and delete persons """
+    """ Serializer to create, list, update and delete persons. """
 
     name = serializers.CharField(max_length=255)
     cpf = serializers.CharField(

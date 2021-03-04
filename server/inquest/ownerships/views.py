@@ -17,7 +17,7 @@ class OwnershipViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    """ Creates, updates, deletes and retrieves ownerships """
+    """ Creates, updates, deletes and retrieves ownerships. """
 
     serializer_class = OwnershipSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrAdmin)

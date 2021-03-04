@@ -1,12 +1,10 @@
-from django.urls import reverse
-from django.contrib.auth.hashers import check_password
-
-from rest_framework.test import APITestCase
-from rest_framework import status
-
-from nose.tools import ok_, eq_
-from faker import Faker
 import factory
+from django.contrib.auth.hashers import check_password
+from django.urls import reverse
+from faker import Faker
+from nose.tools import eq_, ok_
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 from ..models import User
 from .factories import UserFactory
@@ -15,9 +13,7 @@ fake = Faker()
 
 
 class TestUserListTestCase(APITestCase):
-    """
-    Tests /users list operations.
-    """
+    """ Tests /users list operations. """
 
     def setUp(self):
         self.url = reverse("user-list")
@@ -37,9 +33,7 @@ class TestUserListTestCase(APITestCase):
 
 
 class TestUserDetailTestCase(APITestCase):
-    """
-    Tests /users detail operations.
-    """
+    """ Tests /users detail operations. """
 
     def setUp(self):
         self.user = UserFactory()

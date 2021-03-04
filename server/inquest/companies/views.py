@@ -19,7 +19,7 @@ class CompanyViewSet(
     ManageOwnersMixin,
     viewsets.GenericViewSet,
 ):
-    """ Creates, updates, deletes, retrieves companies and add or removes owners """
+    """ Creates, updates, deletes, retrieves companies and add or removes owners. """
 
     serializer_class = CompanySerializer
     permission_classes = (IsAuthenticated, IsOwnerOrAdmin)

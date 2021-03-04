@@ -12,7 +12,7 @@ from inquest.users.test.factories import UserFactory
 
 
 class TestOwnershipListTestCase(APITestCase):
-    """Tests /ownerships list operations."""
+    """ Tests /ownerships list operations. """
 
     def setUp(self):
         self.user = UserFactory()
@@ -49,7 +49,7 @@ class TestOwnershipListTestCase(APITestCase):
 
 
 class TestOwnershipDetailTestCase(APITestCase):
-    """Tests /ownerships detail operations."""
+    """ Tests /ownerships detail operations. """
 
     def setUp(self):
         self.user = UserFactory()

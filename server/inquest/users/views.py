@@ -12,7 +12,7 @@ from inquest.users.serializers import CreateUserSerializer, UserSerializer
 class UserViewSet(
     mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet
 ):
-    """ Updates and retrieves user accounts """
+    """ Updates and retrieves user accounts. """
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -24,7 +24,7 @@ class UserViewSet(
 
 
 class UserCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    """ Creates user accounts """
+    """ Creates user accounts. """
 
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer

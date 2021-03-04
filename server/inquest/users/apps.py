@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class UsersConfig(AppConfig):
-    """ App configuration for users app """
+    """ App configuration for users app. """
 
     name = "inquest.users"
     verbose_name = "Users"

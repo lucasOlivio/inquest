@@ -5,6 +5,8 @@ from inquest.ownerships.models import Ownership
 
 @admin.register(Ownership)
 class OwnershipAdmin(admin.ModelAdmin):
+    """ Custom admin panel configuration for Ownership model. """
+
     exclude = ("user_created", "user_updated")
     list_display = (
         "name",

@@ -5,6 +5,7 @@ from inquest.users.test.factories import UserFactory
 
 
 class CompanyFactory(factory.django.DjangoModelFactory):
+    """ Generates an new Company object for testing purposes. """
 
     company_name = factory.Faker("name")
     fantasy_name = factory.Faker("name")

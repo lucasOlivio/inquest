@@ -11,6 +11,8 @@ pytestmark = pytest.mark.django_db
 
 
 class TestCreateOwnershipSerializer(TestCase):
+    """ Tests OwnershipSerializer creation and functions. """
+
     def setUp(self):
         self.person = PersonFactory()
         self.ownership_data = model_to_dict(OwnershipFactory.build(owner=self.person))

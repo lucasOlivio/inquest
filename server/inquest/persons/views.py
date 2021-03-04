@@ -17,7 +17,7 @@ class PersonViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    """ Creates, updates, deletes and retrieves persons """
+    """ Creates, updates, deletes and retrieves persons. """
 
     serializer_class = PersonSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrAdmin)

@@ -12,8 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
-        """
-        Call create_user on user object.
+        """Call create_user on user object.
+
         Without this the password will be stored in plain text.
         """
         # call create_user on user object. Without this

@@ -5,6 +5,7 @@ from inquest.users.test.factories import UserFactory
 
 
 class OwnershipFactory(factory.django.DjangoModelFactory):
+    """ Generates an new Ownership object for testing purposes. """
 
     name = factory.Faker("name")
     value = 11.11

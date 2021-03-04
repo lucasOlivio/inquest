@@ -2,9 +2,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    def type_user(self):
-        """ Get label for user type """
-        return "Administrador" if self.is_superuser else "Anunciante"
+    """ Extends from AbstractUser model in case custom fields or methods need to be added. """
 
     def __str__(self):
         return self.username
